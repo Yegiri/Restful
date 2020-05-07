@@ -28,15 +28,15 @@ text_ch = """上世纪50年代，一批交大人响应党的号召，“打起�
 　　在复工复产复商复市的关键期，央视网《联播+》特推出海报，号召大家一起感悟精神的力量，为全面建成小康社会而奋斗！"""
 
 data_en = {'language':'english', 'text':text_en}
-abstract_en = requests.get('http://localhost:8383/get_abstract', params=data_en)
+abstract_en = requests.get('http://172.16.157.185:80/get_abstract', params=data_en)
 print(json.loads(abstract_en.text)['abstract'])
 print()
 
 data_ch = {'language':'chinese', 'text':text_ch}
-abstract_ch = requests.get('http://localhost:8383/get_abstract', params=data_ch)
+abstract_ch = requests.get('http://172.16.157.185:80/get_abstract', params=data_ch)
 print(json.loads(abstract_ch.text)['abstract'])
 print()
 
 data_jp= {'language':'japanese', 'text':text_jp}
-abstract_jp = requests.get('http://localhost:8383/get_abstract', params=data_jp)
+abstract_jp = requests.get('http://172.16.157.185:80/get_abstract', params=data_jp)
 print(json.loads(abstract_jp.text)['abstract'])

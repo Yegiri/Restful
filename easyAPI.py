@@ -9,17 +9,17 @@ from sumy.utils import get_stop_words
 
 app = Flask(__name__)
 
-@app.route('/get_abstract', methods=['GET'])
+@app.route('/get_abstract', methods=['POST'])
 def get_task():
-    if not request.args:
+    if not request.form:
         return 'Missing parameter'
-    if 'language' not in request.args:
+    if 'language' not in request.form:
         return 'Missing language'
-    if 'text' not in request.args:
+    if 'text' not in request.form:
         return 'Missing text'
 
-    language = request.args['language']
-    text = request.args['text']
+    language = request.form['language']
+    text = request.form['text']
 
     if language == 'english':
         abstract = summarizer.summarize(text)
@@ -55,4 +55,4 @@ def get_task():
 
 if __name__ == "__main__":
     # 将host设置为0.0.0.0，则外网用户也可以访问到这个服务
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=80)

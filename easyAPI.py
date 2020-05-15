@@ -6,6 +6,7 @@ from sumy.summarizers.lsa import LsaSummarizer
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.nlp.stemmers import Stemmer
 from sumy.utils import get_stop_words
+import logging
 
 app = Flask(__name__)
 
@@ -18,8 +19,8 @@ def get_task():
     if 'text' not in request.form:
         return 'Missing text'
 
-    language = request.form['language']
-    text = request.form['text']
+    language = request.form.get("language")
+    text = request.form.get('text')
 
     if language == 'english':
         abstract = summarizer.summarize(text)
@@ -54,5 +55,10 @@ def get_task():
 
 
 if __name__ == "__main__":
-    # 将host设置为0.0.0.0，则外网用户也可以访问到这个服务
+    handler = logging.FileHandler("flask.log", encoding='UTF-8')
+    handler.setLevel(logging.DEBUG)
+    logging_format = logging.Formatter(
+        '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
+    handler.setFormatter(logging_format)
+    app.logger.addHandler(handler)
     app.run(host="0.0.0.0", port=80)
